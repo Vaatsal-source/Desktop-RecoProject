@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBEUVdXr1lmvvz2bh6q0r7s_P9mkMYMcwU",
-  authDomain: "gesture-control-98352.firebaseapp.com",
-  projectId: "gesture-control-98352",
-  storageBucket: "gesture-control-98352.firebasestorage.app",
-  messagingSenderId: "159401281414",
-  appId: "1:159401281414:web:1ba409f30fb78e0ebc0e07",
-  measurementId: "G-DCSQZFERSJ"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 
