@@ -1,0 +1,15 @@
+
+node_modules/
+dist/
+.env
+
+
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+
+backend/dataset/
+backend/X_train.npy
+backend/y_train.npy
