@@ -3,7 +3,7 @@ from keras import layers, models
 import numpy as np
 import os
 
-# --- PATH FIX ---
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 X_train = np.load(os.path.join(BASE_DIR, "X_train.npy"))
@@ -23,7 +23,7 @@ model = models.Sequential([
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 model.fit(X_train, y_train, epochs=50, batch_size=32, verbose=1)
 
-# --- TFLITE CONVERSION & SAVING FIX ---
+
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
 tflite_model = converter.convert()
 
