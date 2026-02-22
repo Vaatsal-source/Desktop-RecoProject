@@ -34,18 +34,18 @@ while True:
     
     
     status_text = "Searching for hand..."
-    color = (0, 0, 255) # Red
+    color = (0, 0, 255) 
 
     if result.multi_hand_landmarks:
         hand = result.multi_hand_landmarks[0]
         wrist = hand.landmark[0]
         landmarks = []
 
-        # Feature Extraction: Relative coordinates to wrist
+        
         for lm in hand.landmark:
             landmarks.extend([lm.x - wrist.x, lm.y - wrist.y, lm.z - wrist.z])
         
-        # Preprocessing: Scale features to match training data
+       
         X_scaled = scaler.transform(np.array(landmarks).reshape(1, -1)).astype(np.float32)
         
         
@@ -65,16 +65,16 @@ while True:
                 pyautogui.press('volumeup')
                 time.sleep(3)
             elif gesture == "OPEN":
-        # Example: Open Chrome (Windows shortcut)
+        
                 pyautogui.hotkey('win', 'r')
                 pyautogui.write('chrome')
                 pyautogui.press('enter')
                 time.sleep(3)
             status_text = f"ACTIVE: {gesture} ({confidence*100:.0f}%)"
-            color = (0, 255, 0) # Green for successful recognition
+            color = (0, 255, 0) 
         else:
             status_text = "Uncertain Gesture..."
-            color = (0, 255, 255) # Yellow for low confidence
+            color = (0, 255, 255) 
 
     
     cv2.rectangle(frame, (0, 0), (w, 60), (30, 30, 30), -1)
