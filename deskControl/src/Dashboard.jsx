@@ -6,18 +6,18 @@ import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import Webcam from 'react-webcam';
 
-// Initialize socket connection to the Python backend
+
 const socket = io('http://localhost:5000');
 
 export default function Dashboard({ user }) {
   const navigate = useNavigate();
   const webcamRef = useRef(null);
   
-  // Dynamic Gesture State
+ 
   const [gestures, setGestures] = useState([]); 
-  const [isHydrated, setIsHydrated] = useState(false); // Guard for persistence
+  const [isHydrated, setIsHydrated] = useState(false); 
 
-  // UI & Recording States
+
   const [customName, setCustomName] = useState("");
   const [selectedAction, setSelectedAction] = useState("volumeup");
   const [isRecording, setIsRecording] = useState(false);
@@ -38,7 +38,7 @@ export default function Dashboard({ user }) {
     { label: "Neutral", value: "none"},
   ];
 
-  // 1. INITIAL LOAD (Read from LocalStorage once)
+ 
   useEffect(() => {
     const saved = localStorage.getItem("gesture_mappings");
     if (saved) {
@@ -48,10 +48,10 @@ export default function Dashboard({ user }) {
         console.error("Failed to parse saved gestures", e);
       }
     }
-    setIsHydrated(true); // Signal that we are done loading local data
+    setIsHydrated(true); 
   }, []);
 
-  // 2. SAVE TO STORAGE (Only after hydration to avoid wiping data on mount)
+  
   useEffect(() => {
     if (isHydrated) {
       localStorage.setItem("gesture_mappings", JSON.stringify(gestures));
@@ -59,15 +59,15 @@ export default function Dashboard({ user }) {
   }, [gestures, isHydrated]);
 
   useEffect(() => {
-    // 3. BACKEND SYNC: Validate that local gestures actually exist on the server
+   
     socket.on('system_info', (data) => {
       console.log("Backend sync received. Existing files:", data.gestures);
       setBackendStatus(data.model_ready ? "Model Live" : "Need Training");
 
-      // Only perform validation if we've already loaded our local data
+      
       if (isHydrated) {
         setGestures(prev => {
-          // Filter out any local gesture that doesn't have a corresponding .npy file on the backend
+          
           return prev.filter(g => data.gestures.includes(g.trigger));
         });
       }
@@ -98,7 +98,7 @@ export default function Dashboard({ user }) {
         if (isRecording && customName.trim() !== "") {
           socket.emit('collect_data', { gesture: customName.toLowerCase(), landmarks });
         } else if (!isRecording && !isRetraining) {
-          // Dynamic mapping payload
+          
           const mappingPayload = {};
           gestures.forEach(g => { mappingPayload[g.trigger] = g.action; });
           socket.emit('predict', { landmarks, mappings: mappingPayload });
