@@ -15,7 +15,7 @@ app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*", max_http_buffer_size=1e8)
 
-# --- ABSOLUTE PATH ENGINE ---
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATASET_DIR = os.path.join(BASE_DIR, "dataset")
 os.makedirs(DATASET_DIR, exist_ok=True)
@@ -58,7 +58,7 @@ def run_training_sequence():
     try:
         backend_dir = os.path.dirname(os.path.abspath(__file__))
         
-        # Ensure we find scripts in current or parent dir
+       
         prepare_script = os.path.join(backend_dir, "prepare_data.py")
         train_script = os.path.join(backend_dir, "train_model.py")
 
