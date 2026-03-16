@@ -12,6 +12,7 @@ import time
 import threading
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*", max_http_buffer_size=1e8)
 
